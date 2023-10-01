@@ -1,7 +1,9 @@
 # spy
 S&amp;P 500 Returns Visualizer
 
-View the plot on my site [here](https://carterprince.us/spy). (last updated October 1, 2023)
+![](/plot.png)
+
+View the interactive plot on my site [here](https://carterprince.us/spy). (last updated October 1, 2023)
 
 ## How to use
 
