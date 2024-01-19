@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 
-# install these packages with pip:
-#   - pandas
-#   - yfinance
-#   - plotly
-
 import os
 import pandas as pd
 import time
@@ -20,16 +15,12 @@ def download_stocks():
     table = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies', header=0)[0]
     tickers_list = table.Symbol.to_list()
 
-    # Define today
     today = datetime.date.today()
 
-    # Define date 6 months ago
-    six_months_ago = today - datetime.timedelta(days=6*30)  # Approximation
+    six_months_ago = today - datetime.timedelta(days=6*30)
 
-    # Fetch the data
     data = yf.download(tickers_list, six_months_ago.strftime('%Y-%m-%d'), today.strftime('%Y-%m-%d'))
 
-    # assuming 'data' is your DataFrame
     returns = {}
 
     # Calculating price return for each stock
@@ -64,16 +55,13 @@ else:
     returns = returns.sort_values(by='Return', ascending=False)
     returns.to_csv(filename, index=False)
 
-pd.set_option('display.max_rows', None)  # Disable row truncation
-pd.set_option('display.width', None)     # Disable column width truncation
+pd.set_option('display.max_rows', None)
+pd.set_option('display.width', None)
 
 print(returns.sort_values(by='Return', ascending=True).to_string(index=False))
 
-
-# Create a bar chart using Plotly
 fig = px.bar(returns, x='Stock', y='Return', title='S&P 500 Stock Returns (6 Months)',
              labels={'Stock': 'Stock Symbol', 'Return': 'Return (%)'},
              color='Return', color_continuous_scale='Viridis')
 
-# Show the plot
 fig.show()
